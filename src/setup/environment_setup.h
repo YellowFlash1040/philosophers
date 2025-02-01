@@ -1,37 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   destructors.c                                      :+:      :+:    :+:   */
+/*   environment_setup.h                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: akovtune <akovtune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/26 16:17:31 by akovtune          #+#    #+#             */
-/*   Updated: 2025/01/31 14:31:07 by akovtune         ###   ########.fr       */
+/*   Created: 2025/02/01 16:31:29 by akovtune          #+#    #+#             */
+/*   Updated: 2025/02/01 16:53:11 by akovtune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "destructors.h"
+#ifndef ENVIRONMENT_SETUP_H
+# define ENVIRONMENT_SETUP_H
 
-void	clear_philosopher(void *value)
-{
-	t_philosopher	*philosopher;
+# include "environment.h"
+# include "timings_setup.h"
 
-	philosopher = (t_philosopher *)value;
-	destroy_philosopher(philosopher);
-}
+int	setup_environment(t_environment **environment, t_params *params);
 
-void	clear_fork(void *value)
-{
-	t_fork	*fork;
-
-	fork = (t_fork *)value;
-	destroy_fork(fork);
-}
-
-void	clear_thread(void *value)
-{
-	t_thread	*thread;
-
-	thread = (t_thread *)value;
-	destroy_thread_data(&thread);
-}
+#endif

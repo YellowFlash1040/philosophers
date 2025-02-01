@@ -1,25 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   t_dining.h                                         :+:      :+:    :+:   */
+/*   philosophers_setup.h                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: akovtune <akovtune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/28 18:49:39 by akovtune          #+#    #+#             */
-/*   Updated: 2025/01/28 18:50:45 by akovtune         ###   ########.fr       */
+/*   Created: 2025/02/01 16:26:24 by akovtune          #+#    #+#             */
+/*   Updated: 2025/02/01 16:30:37 by akovtune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef T_DINING_H
-# define T_DINING_H
+#ifndef PHILOSOPHERS_SETUP_H
+# define PHILOSOPHERS_SETUP_H
 
-# include "fork.h"
+# include "actions.h"
+# include "circular_list.h"
+# include "destructors.h"
+# include "philosopher.h"
 
-typedef struct dining
-{
-	t_fork	*fork1;
-	t_fork	*fork2;
-	int		time_to_eat;
-}			t_dining;
+# define PHILOSOPHER_ACTION philo_live
+
+# define PHILOSOPHERS_INIT_ERR 22
+
+int	setup_philosophers(t_circular_list **philosophers, int amount);
 
 #endif

@@ -1,37 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   destructors.c                                      :+:      :+:    :+:   */
+/*   simulation_setup.h                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: akovtune <akovtune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/26 16:17:31 by akovtune          #+#    #+#             */
-/*   Updated: 2025/01/31 14:31:07 by akovtune         ###   ########.fr       */
+/*   Created: 2025/01/30 12:06:17 by akovtune          #+#    #+#             */
+/*   Updated: 2025/02/01 17:04:42 by akovtune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "destructors.h"
+#ifndef SIMULATION_SETUP_H
+# define SIMULATION_SETUP_H
 
-void	clear_philosopher(void *value)
-{
-	t_philosopher	*philosopher;
+# include "environment_setup.h"
+# include "philosophers_setup.h"
+# include "simulation_data.h"
+# include "table_setup.h"
+# include "threads_setup.h"
 
-	philosopher = (t_philosopher *)value;
-	destroy_philosopher(philosopher);
-}
+int	setup_data(t_simulation_data *data, t_params *params);
 
-void	clear_fork(void *value)
-{
-	t_fork	*fork;
-
-	fork = (t_fork *)value;
-	destroy_fork(fork);
-}
-
-void	clear_thread(void *value)
-{
-	t_thread	*thread;
-
-	thread = (t_thread *)value;
-	destroy_thread_data(&thread);
-}
+#endif

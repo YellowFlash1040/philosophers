@@ -6,7 +6,7 @@
 /*   By: akovtune <akovtune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 18:36:55 by akovtune          #+#    #+#             */
-/*   Updated: 2025/01/28 18:38:32 by akovtune         ###   ########.fr       */
+/*   Updated: 2025/01/30 16:52:50 by akovtune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 # define TIMINGS_H
 
 # include <stdlib.h>
+
+# define TIMINGS_INIT_ERR 50
 
 typedef struct timings
 {
@@ -23,5 +25,6 @@ typedef struct timings
 }			t_timings;
 
 t_timings	*init_timings(void);
+void		destroy_timings(t_timings **timings);
 
 #endif

@@ -1,37 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   destructors.c                                      :+:      :+:    :+:   */
+/*   environment_setup.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: akovtune <akovtune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/26 16:17:31 by akovtune          #+#    #+#             */
-/*   Updated: 2025/01/31 14:31:07 by akovtune         ###   ########.fr       */
+/*   Created: 2025/02/01 16:31:20 by akovtune          #+#    #+#             */
+/*   Updated: 2025/02/01 16:41:48 by akovtune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "destructors.h"
+#include "environment_setup.h"
 
-void	clear_philosopher(void *value)
+int	setup_environment(t_environment **environment, t_params *params)
 {
-	t_philosopher	*philosopher;
-
-	philosopher = (t_philosopher *)value;
-	destroy_philosopher(philosopher);
-}
-
-void	clear_fork(void *value)
-{
-	t_fork	*fork;
-
-	fork = (t_fork *)value;
-	destroy_fork(fork);
-}
-
-void	clear_thread(void *value)
-{
-	t_thread	*thread;
-
-	thread = (t_thread *)value;
-	destroy_thread_data(&thread);
+	*environment = init_environment();
+	if (!*environment)
+		return (ENV_INIT_ERR);
+	if (setup_timings(&(*environment)->timings, params) != 0)
+		return (TIMINGS_INIT_ERR);
+	return (0);
 }

@@ -9,6 +9,9 @@ NAME					:= a.out
 # Directories
 SRC_DIR					:= src
 MODEL_DIR				:= $(SRC_DIR)/model
+SETUP_DIR				:= $(SRC_DIR)/setup
+LOGIC_DIR				:= $(SRC_DIR)/logic
+HELPERS_DIR				:= $(SRC_DIR)/helpers
 WRAPPERS_DIR			:= $(SRC_DIR)/wrappers
 OBJ_DIR					:= obj
 LIBRARIES_DIR			:= libraries
@@ -17,12 +20,18 @@ CIRCULAR_LIST_LIB_DIR	:= $(LIBRARIES_DIR)/circular_list
 # Includes
 INCLUDES				:= -I$(SRC_DIR) \
 							-I$(MODEL_DIR) \
+							-I$(SETUP_DIR) \
+							-I$(LOGIC_DIR) \
+							-I$(HELPERS_DIR) \
 							-I$(WRAPPERS_DIR) \
 							-I$(CIRCULAR_LIST_LIB_DIR)
 
 # Files
 FILES					:= $(notdir $(wildcard $(SRC_DIR)/*.c)) \
 							$(notdir $(wildcard $(MODEL_DIR)/*.c)) \
+							$(notdir $(wildcard $(SETUP_DIR)/*.c)) \
+							$(notdir $(wildcard $(LOGIC_DIR)/*.c)) \
+							$(notdir $(wildcard $(HELPERS_DIR)/*.c)) \
 							$(notdir $(wildcard $(WRAPPERS_DIR)/*.c)) \
 
 # Objects
@@ -53,6 +62,18 @@ $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 	@$(CC) $(CFLAGS) -c $< -o $@
 
 $(OBJ_DIR)/%.o: $(MODEL_DIR)/%.c
+	@mkdir -p $(OBJ_DIR)
+	@$(CC) $(CFLAGS) -c $< -o $@
+
+$(OBJ_DIR)/%.o: $(SETUP_DIR)/%.c
+	@mkdir -p $(OBJ_DIR)
+	@$(CC) $(CFLAGS) -c $< -o $@
+
+$(OBJ_DIR)/%.o: $(LOGIC_DIR)/%.c
+	@mkdir -p $(OBJ_DIR)
+	@$(CC) $(CFLAGS) -c $< -o $@
+
+$(OBJ_DIR)/%.o: $(HELPERS_DIR)/%.c
 	@mkdir -p $(OBJ_DIR)
 	@$(CC) $(CFLAGS) -c $< -o $@
 

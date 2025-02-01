@@ -6,20 +6,19 @@
 /*   By: akovtune <akovtune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/26 16:16:56 by akovtune          #+#    #+#             */
-/*   Updated: 2025/01/26 16:25:52 by akovtune         ###   ########.fr       */
+/*   Updated: 2025/01/31 14:30:48 by akovtune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef DESTRUCTORS_H
 # define DESTRUCTORS_H
 
-# include "actions.h"
 # include "circular_list.h"
-# include "philosopher_pair.h"
-# include "table.h"
+# include "fork.h"
+# include "thread.h"
 
 void	clear_philosopher(void *philosopher);
-void	clear_table(void *table);
-void	clear_philosopher_pair(void *philosopher_pair);
+void	clear_fork(void *value);
+void	clear_thread(void *value);
 
 #endif

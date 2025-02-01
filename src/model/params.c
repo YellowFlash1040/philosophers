@@ -1,34 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   timings.c                                          :+:      :+:    :+:   */
+/*   params.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: akovtune <akovtune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/28 18:38:01 by akovtune          #+#    #+#             */
-/*   Updated: 2025/01/30 12:57:43 by akovtune         ###   ########.fr       */
+/*   Created: 2025/01/30 12:24:15 by akovtune          #+#    #+#             */
+/*   Updated: 2025/01/31 13:53:02 by akovtune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "timings.h"
+#include "params.h"
 
-t_timings	*init_timings(void)
+t_params	*init_params(void)
 {
-	t_timings	*timings;
+	t_params	*params;
 
-	timings = (t_timings *)malloc(sizeof(t_timings));
-	if (!timings)
+	params = (t_params *)malloc(sizeof(t_params));
+	if (!params)
 		return (NULL);
-	timings->time_to_eat = 0;
-	timings->time_to_sleep = 0;
-	timings->time_to_die = 0;
-	return (timings);
+	params->number_of_philosophers = 0;
+	params->time_to_eat = 0;
+	params->time_to_sleep = 0;
+	params->time_to_die = 0;
+	params->number_of_times_each_philosopher_must_eat = 0;
+	return (params);
 }
 
-void	destroy_timings(t_timings **timings)
+void	destroy_params(t_params **params)
 {
-	if (!timings || !*timings)
+	if (!params || !*params)
 		return ;
-	free(*timings);
-	*timings = NULL;
+	free(*params);
+	*params = NULL;
 }

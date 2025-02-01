@@ -1,37 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   destructors.c                                      :+:      :+:    :+:   */
+/*   threads_setup.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: akovtune <akovtune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/26 16:17:31 by akovtune          #+#    #+#             */
-/*   Updated: 2025/01/31 14:31:07 by akovtune         ###   ########.fr       */
+/*   Created: 2025/02/01 16:44:05 by akovtune          #+#    #+#             */
+/*   Updated: 2025/02/01 16:58:32 by akovtune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "destructors.h"
+#ifndef THREADS_SETUP_H
+# define THREADS_SETUP_H
 
-void	clear_philosopher(void *value)
-{
-	t_philosopher	*philosopher;
+# include "simulation_data.h"
 
-	philosopher = (t_philosopher *)value;
-	destroy_philosopher(philosopher);
-}
+# define THREADS_DATA_LIST_INIT_ERR 23
 
-void	clear_fork(void *value)
-{
-	t_fork	*fork;
+int	setup_threads(t_simulation_data *data);
 
-	fork = (t_fork *)value;
-	destroy_fork(fork);
-}
-
-void	clear_thread(void *value)
-{
-	t_thread	*thread;
-
-	thread = (t_thread *)value;
-	destroy_thread_data(&thread);
-}
+#endif

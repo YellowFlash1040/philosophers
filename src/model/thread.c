@@ -1,32 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   philosopher_pair.c                                 :+:      :+:    :+:   */
+/*   thread.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: akovtune <akovtune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/26 14:41:52 by akovtune          #+#    #+#             */
-/*   Updated: 2025/01/28 17:44:34 by akovtune         ###   ########.fr       */
+/*   Created: 2025/01/30 16:55:25 by akovtune          #+#    #+#             */
+/*   Updated: 2025/01/31 18:36:05 by akovtune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philosopher_pair.h"
+#include "thread.h"
 
-t_philosopher_pair	*init_philosopher_pair(t_philosopher *p1, t_philosopher *p2)
+t_thread	*init_thread_data(void)
 {
-	t_philosopher_pair	*pair;
+	t_thread	*thread;
 
-	if (!p1 || !p2)
+	thread = (t_thread *)malloc(sizeof(t_thread));
+	if (!thread)
 		return (NULL);
-	pair = (t_philosopher_pair *)malloc(sizeof(t_philosopher_pair));
-	if (!pair)
-		return (NULL);
-	pair->philosopher = p1;
-	pair->right_neighbor = p2;
-	return (pair);
+	thread->philosopher = NULL;
+	thread->environment = NULL;
+	return (thread);
 }
 
-void	destroy_philosopher_pair(t_philosopher_pair *pair)
+void	destroy_thread_data(t_thread **thread)
 {
-	free(pair);
+	if (!thread || !*thread)
+		return ;
+	free(*thread);
+	*thread = NULL;
 }

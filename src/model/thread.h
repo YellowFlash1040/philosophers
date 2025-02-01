@@ -1,37 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   destructors.c                                      :+:      :+:    :+:   */
+/*   thread.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: akovtune <akovtune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/26 16:17:31 by akovtune          #+#    #+#             */
-/*   Updated: 2025/01/31 14:31:07 by akovtune         ###   ########.fr       */
+/*   Created: 2025/01/30 17:52:53 by akovtune          #+#    #+#             */
+/*   Updated: 2025/01/31 18:36:09 by akovtune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "destructors.h"
+#ifndef THREAD_H
+# define THREAD_H
 
-void	clear_philosopher(void *value)
+# include "environment.h"
+# include "philosopher.h"
+
+# define THREAD_DATA_INIT_ERR 60
+
+typedef struct thread
 {
 	t_philosopher	*philosopher;
+	t_environment	*environment;
+}					t_thread;
 
-	philosopher = (t_philosopher *)value;
-	destroy_philosopher(philosopher);
-}
+t_thread			*init_thread_data(void);
+void				destroy_thread_data(t_thread **thread);
 
-void	clear_fork(void *value)
-{
-	t_fork	*fork;
-
-	fork = (t_fork *)value;
-	destroy_fork(fork);
-}
-
-void	clear_thread(void *value)
-{
-	t_thread	*thread;
-
-	thread = (t_thread *)value;
-	destroy_thread_data(&thread);
-}
+#endif

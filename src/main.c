@@ -1,44 +1,40 @@
-#include "simulation.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: akovtune <akovtune@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/01/31 15:03:31 by akovtune          #+#    #+#             */
+/*   Updated: 2025/02/01 17:04:08 by akovtune         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-void	free_data(t_simulation_data **data);
+#include "simulation.h"
+#include "simulation_setup.h"
 
 int	main(int argsc, char **args)
 {
-	int					philosophers_amount;
+	t_params			*params;
 	t_simulation_data	*data;
+	int					result;
 
 	(void)argsc;
 	(void)args;
-	philosophers_amount = 8;
-	data = init_data();
+	params = init_params();
+	if (!params)
+		return (PARAMS_INIT_ERR);
+	params->number_of_philosophers = 3;
+	params->time_to_eat = 200;
+	params->time_to_sleep = 200;
+	data = init_simulation_data();
 	if (!data)
-		return (1);
-	data->timings->time_to_eat = 2000 * 1000;
-	data->timings->time_to_sleep = 2000 * 1000;
-	if (!create_philosophers(&data->philosophers, philosophers_amount))
-		return (PHILOSOPHERS_INIT_ERR);
-	data->table = init_table();
-	if (!data->table)
-		return (free_data(&data), TABLE_INIT_ERR);
-	if (!seat_philosophers_at_the_table(data->philosophers, data->table))
-		return (free_data(&data), PHILOSOPHERS_PLACEMENT_ERROR);
+		return (SIMULATION_DATA_INIT_ERR);
+	result = setup_data(data, params);
+	destroy_params(&params);
+	if (result != 0)
+		return (destroy_simulation_data(&data), result);
 	start_simulation(data);
-	//
-	free_data(data);
+	destroy_simulation_data(&data);
 	return (0);
-}
-
-void	free_data(t_simulation_data **data)
-{
-	t_simulation_data	*simulation_data;
-
-	if (!data || !*data)
-		return ;
-	simulation_data = *data;
-	if (simulation_data->table)
-		destroy_table(&simulation_data->table);
-	if (simulation_data->philosophers)
-		destroy_table(&simulation_data->philosophers);
-	free(simulation_data);
-	*data = NULL;
 }

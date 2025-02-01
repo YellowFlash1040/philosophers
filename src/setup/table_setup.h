@@ -1,37 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   destructors.c                                      :+:      :+:    :+:   */
+/*   table_setup.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: akovtune <akovtune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/26 16:17:31 by akovtune          #+#    #+#             */
-/*   Updated: 2025/01/31 14:31:07 by akovtune         ###   ########.fr       */
+/*   Created: 2025/02/01 16:33:06 by akovtune          #+#    #+#             */
+/*   Updated: 2025/02/01 16:42:46 by akovtune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "destructors.h"
+#ifndef TABLE_SETUP_H
+# define TABLE_SETUP_H
 
-void	clear_philosopher(void *value)
-{
-	t_philosopher	*philosopher;
+# include "table.h"
 
-	philosopher = (t_philosopher *)value;
-	destroy_philosopher(philosopher);
-}
+# define FORKS_INIT_ERR 21
 
-void	clear_fork(void *value)
-{
-	t_fork	*fork;
+int	setup_table(t_table **table, int forks_amount);
 
-	fork = (t_fork *)value;
-	destroy_fork(fork);
-}
-
-void	clear_thread(void *value)
-{
-	t_thread	*thread;
-
-	thread = (t_thread *)value;
-	destroy_thread_data(&thread);
-}
+#endif

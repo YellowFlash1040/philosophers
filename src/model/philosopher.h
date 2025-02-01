@@ -6,7 +6,7 @@
 /*   By: akovtune <akovtune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/25 15:58:18 by akovtune          #+#    #+#             */
-/*   Updated: 2025/01/28 18:43:40 by akovtune         ###   ########.fr       */
+/*   Updated: 2025/01/31 15:13:54 by akovtune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,15 @@
 # include "action.h"
 # include "fork.h"
 # include "soul.h"
-# include <unistd.h>
 
 typedef struct philosopher
 {
+	int			id;
 	t_soul		*soul;
-	t_fork		*fork;
+	t_fork		*left_fork;
+	t_fork		*right_fork;
 	t_action	action;
+	bool		is_alive;
 }				t_philosopher;
 
 t_philosopher	*init_philosopher(t_action action);

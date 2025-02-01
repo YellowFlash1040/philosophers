@@ -1,28 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   philosopher_pair.h                                 :+:      :+:    :+:   */
+/*   environment.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: akovtune <akovtune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/26 14:40:46 by akovtune          #+#    #+#             */
-/*   Updated: 2025/01/28 17:44:58 by akovtune         ###   ########.fr       */
+/*   Created: 2025/01/31 18:31:32 by akovtune          #+#    #+#             */
+/*   Updated: 2025/02/01 17:01:04 by akovtune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PHILOSOPHER_PAIR_H
-# define PHILOSOPHER_PAIR_H
+#ifndef ENVIRONMENT_H
+# define ENVIRONMENT_H
 
-# include "philosopher.h"
+# include "clock.h"
+# include "timings.h"
+# include <stdbool.h>
 
-typedef struct philosopher_pair
+# define ENV_INIT_ERR 60
+
+typedef struct environment
 {
-	t_philosopher	*philosopher;
-	t_philosopher	*right_neighbor;
-}					t_philosopher_pair;
+	t_timings		*timings;
+	t_time_point	simulation_start;
+	bool			someone_died;
+	// int				last_ate;
+}					t_environment;
 
-t_philosopher_pair	*init_philosopher_pair(t_philosopher *p1,
-						t_philosopher *p2);
-void				destroy_philosopher_pair(t_philosopher_pair *pair);
+t_environment		*init_environment(void);
+void				destroy_environment(t_environment **environment);
 
 #endif

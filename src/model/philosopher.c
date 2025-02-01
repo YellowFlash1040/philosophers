@@ -6,7 +6,7 @@
 /*   By: akovtune <akovtune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/25 16:00:49 by akovtune          #+#    #+#             */
-/*   Updated: 2025/01/28 18:51:20 by akovtune         ###   ########.fr       */
+/*   Updated: 2025/01/31 15:14:24 by akovtune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,14 @@ t_philosopher	*init_philosopher(t_action action)
 	philosopher = (t_philosopher *)malloc(sizeof(t_philosopher));
 	if (!philosopher)
 		return (NULL);
+	philosopher->id = 0;
 	philosopher->soul = init_soul();
 	if (!philosopher->soul)
 		return (free(philosopher), NULL);
-	philosopher->fork = init_fork();
-	if (!philosopher->fork)
-		return (free(philosopher->soul), free(philosopher), NULL);
 	philosopher->action = action;
+	philosopher->left_fork = NULL;
+	philosopher->right_fork = NULL;
+	philosopher->is_alive = false;
 	return (philosopher);
 }
 
@@ -33,9 +34,7 @@ bool	destroy_philosopher(t_philosopher *philosopher)
 {
 	if (philosopher)
 	{
-		if (!destroy_fork(philosopher->fork))
-			return (false);
-		destroy_soul(philosopher->soul);
+		destroy_soul(&philosopher->soul);
 		free(philosopher);
 		return (true);
 	}
@@ -48,6 +47,7 @@ bool	bring_to_life(t_philosopher *philosopher, void *arg)
 		return (false);
 	if (pthread_create(philosopher->soul, NULL, philosopher->action, arg) != 0)
 		return (false);
+	philosopher->is_alive = true;
 	return (true);
 }
 

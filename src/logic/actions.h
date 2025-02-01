@@ -1,37 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   destructors.c                                      :+:      :+:    :+:   */
+/*   actions.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: akovtune <akovtune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/26 16:17:31 by akovtune          #+#    #+#             */
-/*   Updated: 2025/01/31 14:31:07 by akovtune         ###   ########.fr       */
+/*   Created: 2025/01/26 15:10:57 by akovtune          #+#    #+#             */
+/*   Updated: 2025/01/31 18:40:02 by akovtune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "destructors.h"
+#ifndef ACTIONS_H
+# define ACTIONS_H
 
-void	clear_philosopher(void *value)
-{
-	t_philosopher	*philosopher;
+# include "action.h"
+# include "clock.h"
+# include "thread.h"
+# include <stdio.h>
+# include <unistd.h> //for usleep()
 
-	philosopher = (t_philosopher *)value;
-	destroy_philosopher(philosopher);
-}
+void	*philo_live(void *arg);
+void	*philo_eat(void *arg);
+void	*philo_think(void *arg);
+void	*philo_sleep(void *arg);
 
-void	clear_fork(void *value)
-{
-	t_fork	*fork;
-
-	fork = (t_fork *)value;
-	destroy_fork(fork);
-}
-
-void	clear_thread(void *value)
-{
-	t_thread	*thread;
-
-	thread = (t_thread *)value;
-	destroy_thread_data(&thread);
-}
+#endif
