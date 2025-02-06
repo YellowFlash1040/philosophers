@@ -6,7 +6,7 @@
 /*   By: akovtune <akovtune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 14:46:42 by akovtune          #+#    #+#             */
-/*   Updated: 2025/02/06 18:07:43 by akovtune         ###   ########.fr       */
+/*   Updated: 2025/02/06 18:16:30 by akovtune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,13 +56,13 @@ static int	is_valid_params(t_params *params, int argsc)
 {
 	if (params->number_of_philosophers < 1)
 		return (PHILOSOPHERS_COUNT_ERR);
-	if (params->time_to_die < 0)
+	if (params->time_to_die < 1)
 		return (TIME_TO_DIE_ERR);
-	if (params->time_to_eat < 0)
+	if (params->time_to_eat < 1)
 		return (TIME_TO_EAT_ERR);
-	if (params->time_to_sleep < 0)
+	if (params->time_to_sleep < 1)
 		return (TIME_TO_SLEEP_ERR);
-	if (argsc == 6 && params->number_of_times_each_philosopher_must_eat < 0)
+	if (argsc == 6 && params->number_of_times_each_philosopher_must_eat < 1)
 		return (OPTIONAL_PARAM_ERR);
 	return (SUCCESS);
 }

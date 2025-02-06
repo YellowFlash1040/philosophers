@@ -4,7 +4,7 @@ CFLAGS					 = -Wall -Wextra -Werror $(INCLUDES) -g
 ADDITIONAL_FLAGS		:= -pthread
 
 # Output Files
-NAME					:= a.out
+NAME					:= philo
 
 # Directories
 SRC_DIR					:= src
