@@ -6,7 +6,7 @@
 /*   By: akovtune <akovtune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 18:21:54 by akovtune          #+#    #+#             */
-/*   Updated: 2025/02/01 17:03:25 by akovtune         ###   ########.fr       */
+/*   Updated: 2025/02/06 15:37:39 by akovtune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define SIMULATION_DATA_H
 
 # include "destructors.h"
+# include "monitor.h"
 # include "table.h"
 # include "timings.h"
 
@@ -25,6 +26,7 @@ typedef struct simulation_data
 	t_circular_list	*philosophers;
 	t_environment	*environment;
 	t_circular_list	*threads;
+	t_monitor		*monitor;
 }					t_simulation_data;
 
 t_simulation_data	*init_simulation_data(void);

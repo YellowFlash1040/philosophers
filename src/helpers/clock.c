@@ -6,7 +6,7 @@
 /*   By: akovtune <akovtune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 14:04:15 by akovtune          #+#    #+#             */
-/*   Updated: 2025/01/31 18:35:25 by akovtune         ###   ########.fr       */
+/*   Updated: 2025/02/06 16:42:02 by akovtune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,22 @@ double	calculate_time_difference(t_time_point start, t_time_point end)
 	return (elapsed);
 }
 
-int	get_current_time_stamp(t_time_point simulation_start)
+int	calculate_time_difference_in_ms(t_time_point start, t_time_point end)
+{
+	int	result;
+
+	result = calculate_time_difference(start, end) * MILLISECOND;
+	return (result);
+}
+
+int	time_elapsed_since(t_time_point start, t_time_point *now_ref)
 {
 	t_time_point	now;
 	int				time_stamp;
 
 	gettimeofday(&now, NULL);
-	time_stamp = calculate_time_difference(simulation_start, now) * 1e6;
+	time_stamp = calculate_time_difference_in_ms(start, now);
+	if (now_ref)
+		*now_ref = now;
 	return (time_stamp);
 }

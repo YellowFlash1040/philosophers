@@ -6,20 +6,18 @@
 /*   By: akovtune <akovtune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 14:02:37 by akovtune          #+#    #+#             */
-/*   Updated: 2025/01/31 18:35:31 by akovtune         ###   ########.fr       */
+/*   Updated: 2025/02/06 16:42:13 by akovtune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CLOCK_H
 # define CLOCK_H
 
+# include "time_point.h"
 # include <stdlib.h>
-# include <sys/time.h>
 
-typedef struct timeval	t_time_point;
-
-double					calculate_time_difference(t_time_point start,
-							t_time_point end);
-int						get_current_time_stamp(t_time_point simulation_start);
+double	calculate_time_difference(t_time_point start, t_time_point end);
+int		calculate_time_difference_in_ms(t_time_point start, t_time_point end);
+int		time_elapsed_since(t_time_point start, t_time_point *now_ref);
 
 #endif

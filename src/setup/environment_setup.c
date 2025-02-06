@@ -6,7 +6,7 @@
 /*   By: akovtune <akovtune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 16:31:20 by akovtune          #+#    #+#             */
-/*   Updated: 2025/02/01 16:41:48 by akovtune         ###   ########.fr       */
+/*   Updated: 2025/02/06 15:22:05 by akovtune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,5 +19,7 @@ int	setup_environment(t_environment **environment, t_params *params)
 		return (ENV_INIT_ERR);
 	if (setup_timings(&(*environment)->timings, params) != 0)
 		return (TIMINGS_INIT_ERR);
+	pthread_mutex_init((*environment)->death_mutex, NULL);
+	pthread_mutex_init((*environment)->write_mutex, NULL);
 	return (0);
 }

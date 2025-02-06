@@ -6,7 +6,7 @@
 /*   By: akovtune <akovtune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/25 16:00:49 by akovtune          #+#    #+#             */
-/*   Updated: 2025/01/31 15:14:24 by akovtune         ###   ########.fr       */
+/*   Updated: 2025/02/06 15:59:08 by akovtune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ t_philosopher	*init_philosopher(t_action action)
 	philosopher->left_fork = NULL;
 	philosopher->right_fork = NULL;
 	philosopher->is_alive = false;
+	philosopher->last_meal_time = (t_time_point){0};
 	return (philosopher);
 }
 

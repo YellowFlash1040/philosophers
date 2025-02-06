@@ -1,18 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   action.h                                           :+:      :+:    :+:   */
+/*   monitor.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: akovtune <akovtune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/25 15:54:07 by akovtune          #+#    #+#             */
-/*   Updated: 2025/02/06 16:34:16 by akovtune         ###   ########.fr       */
+/*   Created: 2025/02/06 15:22:54 by akovtune          #+#    #+#             */
+/*   Updated: 2025/02/06 15:25:26 by akovtune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ACTION_H
-# define ACTION_H
+#ifndef MONITOR_H
+# define MONITOR_H
 
-typedef void	*(*t_action)(void *);
+# include "monitor_data.h"
+# include "simulation_data.h"
+# include "soul.h"
+# include <stdlib.h>
+
+# define MONITOR_INIT_ERR 90
+
+typedef struct monitor
+{
+	t_monitor_data	*monitor_data;
+	t_soul			*soul;
+}					t_monitor;
+
+t_monitor			*init_monitor(void);
+void				destroy_monitor(t_monitor **monitor);
 
 #endif

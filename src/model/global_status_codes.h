@@ -1,18 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   action.h                                           :+:      :+:    :+:   */
+/*   global_status_codes.h                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: akovtune <akovtune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/25 15:54:07 by akovtune          #+#    #+#             */
-/*   Updated: 2025/02/06 16:34:16 by akovtune         ###   ########.fr       */
+/*   Created: 2025/02/06 15:26:35 by akovtune          #+#    #+#             */
+/*   Updated: 2025/02/06 15:26:47 by akovtune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ACTION_H
-# define ACTION_H
+#ifndef GLOBAL_STATUS_CODES_H
+# define GLOBAL_STATUS_CODES_H
 
-typedef void	*(*t_action)(void *);
+# define SUCCESS 0
+# define FAIL 1
 
 #endif

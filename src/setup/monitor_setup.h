@@ -1,18 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   action.h                                           :+:      :+:    :+:   */
+/*   monitor_setup.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: akovtune <akovtune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/25 15:54:07 by akovtune          #+#    #+#             */
-/*   Updated: 2025/02/06 16:34:16 by akovtune         ###   ########.fr       */
+/*   Created: 2025/02/06 15:22:43 by akovtune          #+#    #+#             */
+/*   Updated: 2025/02/06 15:34:07 by akovtune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ACTION_H
-# define ACTION_H
+#ifndef MONITOR_SETUP_H
+# define MONITOR_SETUP_H
 
-typedef void	*(*t_action)(void *);
+# include "global_status_codes.h"
+# include "monitor.h"
+
+# define EMPTY_MONITOR_ERR 80
+# define EMPTY_DATA_ERR 81
+
+int	setup_monitor(t_monitor **monitor, t_simulation_data *data);
 
 #endif

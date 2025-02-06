@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   actions.c                                          :+:      :+:    :+:   */
+/*   philo_actions.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: akovtune <akovtune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/26 15:11:05 by akovtune          #+#    #+#             */
-/*   Updated: 2025/02/01 16:17:59 by akovtune         ###   ########.fr       */
+/*   Updated: 2025/02/06 16:41:18 by akovtune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "actions.h"
+#include "philo_actions.h"
 
 static void	wait_for_forks(t_thread *thread);
 static void	put_forks_back(t_thread *thread);
@@ -123,4 +123,21 @@ void	*philo_die(void *arg)
 {
 	(void)arg;
 	return (NULL);
+}
+
+void	print_status(t_thread *thread, t_status status, t_time_point *now_ref)
+{
+	int		time_stamp;
+	int		id;
+	char	*status_message;
+
+	if (is_someone_died(thread->environment))
+		return ;
+	time_stamp = time_elapsed_since(thread->environment->simulation_start,
+			now_ref);
+	id = thread->philosopher->id;
+	status_message = get_status_message(status);
+	pthread_mutex_lock(thread->environment->write_mutex);
+	printf("%d %d %s\n", time_stamp, id, status_message);
+	pthread_mutex_unlock(thread->environment->write_mutex);
 }

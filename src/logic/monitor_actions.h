@@ -1,18 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   action.h                                           :+:      :+:    :+:   */
+/*   monitor_actions.h                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: akovtune <akovtune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/25 15:54:07 by akovtune          #+#    #+#             */
-/*   Updated: 2025/02/06 16:34:16 by akovtune         ###   ########.fr       */
+/*   Created: 2025/02/06 14:47:11 by akovtune          #+#    #+#             */
+/*   Updated: 2025/02/06 16:04:22 by akovtune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ACTION_H
-# define ACTION_H
+#ifndef MONITOR_ACTIONS_H
+# define MONITOR_ACTIONS_H
 
-typedef void	*(*t_action)(void *);
+# include "death_info.h"
+# include "monitor.h"
+# include "time_point.h"
+
+void	start_monitoring(t_monitor *monitor);
 
 #endif
