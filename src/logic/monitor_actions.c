@@ -6,7 +6,7 @@
 /*   By: akovtune <akovtune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 14:47:07 by akovtune          #+#    #+#             */
-/*   Updated: 2025/02/06 16:44:28 by akovtune         ###   ########.fr       */
+/*   Updated: 2025/02/06 16:57:47 by akovtune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ static bool	is_someone_died(t_circular_list *list, int time_to_die,
 static bool	time_is_up(t_philosopher *philosopher, int time_to_die,
 				t_time_point *death_timestamp);
 static void	handle_death(t_environment *environment, t_death_info *death_info);
+void		*monitoring(void *arg);
 
 void	start_monitoring(t_monitor *monitor)
 {
@@ -25,7 +26,7 @@ void	start_monitoring(t_monitor *monitor)
 
 	soul = monitor->soul;
 	monitor_data = monitor->monitor_data;
-	pthread_create(&soul, NULL, monitoring, (void *)monitor_data);
+	pthread_create(soul, NULL, monitoring, (void *)monitor_data);
 }
 
 void	*monitoring(void *arg)
@@ -92,10 +93,14 @@ static bool	time_is_up(t_philosopher *philosopher, int time_to_die,
 
 static void	handle_death(t_environment *environment, t_death_info *death_info)
 {
+	int	death_timestamp;
+
 	pthread_mutex_lock(environment->death_mutex);
 	environment->someone_died = true;
 	pthread_mutex_unlock(environment->death_mutex);
+	death_timestamp = calculate_time_difference_in_ms(environment->simulation_start,
+			death_info->timestamp);
 	pthread_mutex_lock(environment->write_mutex);
-	printf("%d %d died\n", death_info->timestamp, death_info->philo_id);
+	printf("%d %d died\n", death_timestamp, death_info->philo_id);
 	pthread_mutex_unlock(environment->write_mutex);
 }

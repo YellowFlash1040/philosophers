@@ -6,7 +6,7 @@
 /*   By: akovtune <akovtune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 15:22:48 by akovtune          #+#    #+#             */
-/*   Updated: 2025/02/06 15:28:01 by akovtune         ###   ########.fr       */
+/*   Updated: 2025/02/06 17:25:06 by akovtune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 # include "environment.h"
 # include <stdlib.h>
 
-# define MONITOR_DATA_INIT_ERR 90
+# define MONITOR_DATA_INIT_ERR 120
 
 typedef struct monitor_data
 {

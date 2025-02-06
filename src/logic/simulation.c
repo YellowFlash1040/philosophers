@@ -6,7 +6,7 @@
 /*   By: akovtune <akovtune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/26 14:45:03 by akovtune          #+#    #+#             */
-/*   Updated: 2025/02/06 16:46:12 by akovtune         ###   ########.fr       */
+/*   Updated: 2025/02/06 17:16:18 by akovtune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,5 +76,5 @@ static void	stop_timer(t_simulation_data *data)
 	t_monitor	*monitor;
 
 	monitor = data->monitor;
-	pthread_join(monitor->soul, NULL);
+	pthread_join(*(monitor->soul), NULL);
 }

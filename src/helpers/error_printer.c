@@ -1,24 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   monitor_actions.h                                  :+:      :+:    :+:   */
+/*   error_printer.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: akovtune <akovtune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/06 14:47:11 by akovtune          #+#    #+#             */
-/*   Updated: 2025/02/06 16:54:16 by akovtune         ###   ########.fr       */
+/*   Created: 2025/02/06 17:23:10 by akovtune          #+#    #+#             */
+/*   Updated: 2025/02/06 17:23:11 by akovtune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MONITOR_ACTIONS_H
-# define MONITOR_ACTIONS_H
+#include "error_printer.h"
 
-# include "death_info.h"
-# include "monitor.h"
-# include "philosopher.h"
-# include "time_point.h"
-# include <stdio.h>
-
-void	start_monitoring(t_monitor *monitor);
-
-#endif
+void	print_error(int status)
+{
+	printf("Error %d\n", status);
+}
