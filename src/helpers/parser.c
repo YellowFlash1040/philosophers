@@ -6,7 +6,7 @@
 /*   By: akovtune <akovtune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 14:46:42 by akovtune          #+#    #+#             */
-/*   Updated: 2025/02/06 18:16:30 by akovtune         ###   ########.fr       */
+/*   Updated: 2025/02/06 18:33:51 by akovtune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,13 @@ int	parse_params(int argsc, char **args, t_params **params_ref)
 		return (PARAMS_INIT_ERR);
 	convert_and_fill_numbers(argsc, args, params);
 	validation_result = is_valid_params(params, argsc);
-	if (validation_result == SUCCESS)
+	if (validation_result != SUCCESS)
 	{
-		*params_ref = params;
-		return (SUCCESS);
+		free(params);
+		return (validation_result);
 	}
-	free(params);
-	return (validation_result);
+	*params_ref = params;
+	return (SUCCESS);
 }
 
 static bool	convert_and_fill_numbers(int argsc, char **args, t_params *params)

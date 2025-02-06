@@ -6,7 +6,7 @@
 /*   By: akovtune <akovtune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 18:33:00 by akovtune          #+#    #+#             */
-/*   Updated: 2025/02/06 17:18:26 by akovtune         ###   ########.fr       */
+/*   Updated: 2025/02/06 18:23:27 by akovtune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ void	destroy_environment(t_environment **environment)
 		destroy_timings(&(*environment)->timings);
 	pthread_mutex_destroy((*environment)->death_mutex);
 	pthread_mutex_destroy((*environment)->write_mutex);
+	free((*environment)->death_mutex);
+	free((*environment)->write_mutex);
 	free(*environment);
 	*environment = NULL;
 }

@@ -6,7 +6,7 @@
 /*   By: akovtune <akovtune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 15:03:31 by akovtune          #+#    #+#             */
-/*   Updated: 2025/02/06 18:17:41 by akovtune         ###   ########.fr       */
+/*   Updated: 2025/02/06 18:31:11 by akovtune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ static int	philosophers(int argsc, char **args)
 		return (destroy_simulation_data(&data), result);
 	start_simulation(data);
 	destroy_simulation_data(&data);
-	return (0);
+	return (SUCCESS);
 }
 
 // static int	set_params(t_params **params_ref)

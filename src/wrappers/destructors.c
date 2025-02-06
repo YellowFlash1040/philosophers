@@ -6,7 +6,7 @@
 /*   By: akovtune <akovtune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/26 16:17:31 by akovtune          #+#    #+#             */
-/*   Updated: 2025/01/31 14:31:07 by akovtune         ###   ########.fr       */
+/*   Updated: 2025/02/06 18:40:38 by akovtune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	clear_fork(void *value)
 	t_fork	*fork;
 
 	fork = (t_fork *)value;
-	destroy_fork(fork);
+	destroy_fork(&fork);
 }
 
 void	clear_thread(void *value)

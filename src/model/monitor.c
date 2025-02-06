@@ -6,7 +6,7 @@
 /*   By: akovtune <akovtune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 15:22:52 by akovtune          #+#    #+#             */
-/*   Updated: 2025/02/06 15:28:31 by akovtune         ###   ########.fr       */
+/*   Updated: 2025/02/06 18:22:22 by akovtune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ void	destroy_monitor(t_monitor **monitor)
 {
 	if (!monitor || !*monitor)
 		return ;
+	destroy_monitor_data(&(*monitor)->monitor_data);
 	destroy_soul(&(*monitor)->soul);
 	free(*monitor);
 	*monitor = NULL;

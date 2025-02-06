@@ -6,7 +6,7 @@
 /*   By: akovtune <akovtune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/25 16:11:52 by akovtune          #+#    #+#             */
-/*   Updated: 2025/01/30 16:50:40 by akovtune         ###   ########.fr       */
+/*   Updated: 2025/02/06 18:41:01 by akovtune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,6 @@
 typedef pthread_mutex_t	t_fork;
 
 t_fork					*init_fork(void);
-bool					destroy_fork(t_fork *fork);
+bool					destroy_fork(t_fork **fork);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: akovtune <akovtune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 18:26:59 by akovtune          #+#    #+#             */
-/*   Updated: 2025/02/01 17:03:00 by akovtune         ###   ########.fr       */
+/*   Updated: 2025/02/06 18:29:02 by akovtune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,8 @@ void	destroy_simulation_data(t_simulation_data **data)
 		destroy_environment(&simulation_data->environment);
 	if (simulation_data->threads)
 		clear_list(simulation_data->threads, clear_thread);
+	if (simulation_data->monitor)
+		destroy_monitor(&simulation_data->monitor);
 	free(simulation_data);
 	*data = NULL;
 }

@@ -6,7 +6,7 @@
 /*   By: akovtune <akovtune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/25 18:11:21 by akovtune          #+#    #+#             */
-/*   Updated: 2025/01/25 18:43:28 by akovtune         ###   ########.fr       */
+/*   Updated: 2025/02/06 18:40:28 by akovtune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,14 +24,13 @@ t_fork	*init_fork(void)
 	return (fork);
 }
 
-bool	destroy_fork(t_fork *fork)
+bool	destroy_fork(t_fork **fork)
 {
-	if (fork)
-	{
-		if (pthread_mutex_destroy(fork) != 0)
-			return (false);
-		free(fork);
-		return (true);
-	}
-	return (false);
+	if (!fork || !*fork)
+		return (false);
+	if (pthread_mutex_destroy(*fork) != 0)
+		return (false);
+	free(*fork);
+	*fork = NULL;
+	return (true);
 }
