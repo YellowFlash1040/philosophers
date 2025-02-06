@@ -46,13 +46,15 @@ void	*philo_live(void *arg)
 
 static int	philo_eat(t_thread *thread)
 {
-	bool	has_both_forks;
+	t_time_point	now;
+	bool			has_both_forks;
 
 	has_both_forks = wait_for_forks(thread);
 	if (has_both_forks)
 	{
-		if (!print_status(thread, EATING, NULL))
+		if (!print_status(thread, EATING, &now))
 			return (SOMEONE_DIED);
+		thread->philosopher->last_meal_time = now;
 		usleep(thread->environment->timings->time_to_eat * MILLISECOND);
 	}
 	put_forks_back(thread);
