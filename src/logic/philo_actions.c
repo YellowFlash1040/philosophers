@@ -12,7 +12,7 @@
 
 #include "philo_actions.h"
 
-static int	philo_think(t_thread *thread);
+int			philo_think(t_thread *thread);
 static int	philo_eat(t_thread *thread);
 static int	philo_sleep(t_thread *thread);
 static bool	wait_for_forks(t_thread *thread);
@@ -116,39 +116,4 @@ static int	philo_sleep(t_thread *thread)
 		return (SOMEONE_DIED);
 	usleep(thread->environment->timings->time_to_sleep * MILLISECOND);
 	return (SUCCESS);
-}
-
-static int	philo_think(t_thread *thread)
-{
-	if (!print_status(thread, THINKING, NULL))
-		return (SOMEONE_DIED);
-	return (SUCCESS);
-}
-
-bool	print_status(t_thread *thread, t_status status, t_time_point *now_ref)
-{
-	int		time_stamp;
-	int		id;
-	char	*status_message;
-
-	if (is_someone_dead(thread->environment))
-		return (false);
-	time_stamp = time_elapsed_since(thread->environment->simulation_start,
-			now_ref);
-	id = thread->philosopher->id;
-	status_message = get_status_message(status);
-	pthread_mutex_lock(thread->environment->write_mutex);
-	printf("%d %d %s\n", time_stamp, id, status_message);
-	pthread_mutex_unlock(thread->environment->write_mutex);
-	return (true);
-}
-
-bool	is_someone_dead(t_environment *environment)
-{
-	bool	result;
-
-	pthread_mutex_lock(environment->death_mutex);
-	result = environment->someone_died;
-	pthread_mutex_unlock(environment->death_mutex);
-	return (result);
 }
