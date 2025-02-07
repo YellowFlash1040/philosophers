@@ -6,7 +6,7 @@
 /*   By: akovtune <akovtune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 18:33:00 by akovtune          #+#    #+#             */
-/*   Updated: 2025/02/06 18:23:27 by akovtune         ###   ########.fr       */
+/*   Updated: 2025/02/07 11:55:29 by akovtune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ t_environment	*init_environment(void)
 	environment->timings = NULL;
 	environment->death_mutex = NULL;
 	environment->write_mutex = NULL;
+	environment->meals_required = -1;
 	return (environment);
 }
 

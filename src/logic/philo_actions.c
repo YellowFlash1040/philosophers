@@ -37,6 +37,8 @@ void	*philo_live(void *arg)
 		action_result = philo_eat(thread);
 		if (action_result != SUCCESS)
 			break ;
+		if (thread->philosopher->meals_eaten == thread->environment->meals_required)
+			break ;
 		action_result = philo_sleep(thread);
 		if (action_result != SUCCESS)
 			break ;
@@ -56,6 +58,7 @@ static int	philo_eat(t_thread *thread)
 		if (!print_status(thread, EATING, &now))
 			return (SOMEONE_DIED);
 		thread->philosopher->last_meal_time = now;
+		thread->philosopher->meals_eaten++;
 		usleep(thread->environment->timings->time_to_eat * MILLISECOND);
 	}
 	put_forks_back(thread, forks_taken);
