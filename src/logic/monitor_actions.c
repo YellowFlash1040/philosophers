@@ -6,7 +6,7 @@
 /*   By: akovtune <akovtune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 14:47:07 by akovtune          #+#    #+#             */
-/*   Updated: 2025/02/06 18:04:53 by akovtune         ###   ########.fr       */
+/*   Updated: 2025/02/07 13:40:19 by akovtune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ void	*monitoring(void *arg)
 			handle_death(monitor_data->environment, &death_info);
 			someone_died = true;
 		}
+		usleep(MILLISECOND);
 	}
 	return (NULL);
 }

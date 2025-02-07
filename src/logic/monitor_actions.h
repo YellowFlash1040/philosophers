@@ -6,7 +6,7 @@
 /*   By: akovtune <akovtune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 14:47:11 by akovtune          #+#    #+#             */
-/*   Updated: 2025/02/06 16:54:16 by akovtune         ###   ########.fr       */
+/*   Updated: 2025/02/07 13:40:42 by akovtune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include "philosopher.h"
 # include "time_point.h"
 # include <stdio.h>
+# include <unistd.h>
 
 void	start_monitoring(t_monitor *monitor);
 

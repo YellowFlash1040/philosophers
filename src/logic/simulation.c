@@ -6,7 +6,7 @@
 /*   By: akovtune <akovtune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/26 14:45:03 by akovtune          #+#    #+#             */
-/*   Updated: 2025/02/06 17:16:18 by akovtune         ###   ########.fr       */
+/*   Updated: 2025/02/07 12:25:48 by akovtune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ static void	collect_corpses(t_circular_list *list)
 	int						i;
 
 	i = -1;
+	philosophers = list->head;
 	while (++i < list->count)
 	{
 		philosopher = (t_philosopher *)philosophers->value;

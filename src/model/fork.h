@@ -6,7 +6,7 @@
 /*   By: akovtune <akovtune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/25 16:11:52 by akovtune          #+#    #+#             */
-/*   Updated: 2025/02/06 18:41:01 by akovtune         ###   ########.fr       */
+/*   Updated: 2025/02/07 13:17:21 by akovtune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,12 @@
 # include <stdlib.h>
 
 # define FORK_INIT_ERR 30
+
+typedef enum e_fork_name
+{
+	LEFT = 0,
+	RIGHT = 1
+}						t_fork_name;
 
 typedef pthread_mutex_t	t_fork;
 
