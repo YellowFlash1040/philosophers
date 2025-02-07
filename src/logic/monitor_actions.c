@@ -6,7 +6,7 @@
 /*   By: akovtune <akovtune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 14:47:07 by akovtune          #+#    #+#             */
-/*   Updated: 2025/02/07 13:40:19 by akovtune         ###   ########.fr       */
+/*   Updated: 2025/02/07 16:35:12 by akovtune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ static bool	is_someone_died(t_circular_list *list, int time_to_die,
 static bool	time_is_up(t_philosopher *philosopher, int time_to_die,
 				t_time_point *death_timestamp);
 static void	handle_death(t_environment *environment, t_death_info *death_info);
+bool		has_everyone_eaten_enough(t_circular_list *philosophers);
 void		*monitoring(void *arg);
 
 void	start_monitoring(t_monitor *monitor)
@@ -48,6 +49,8 @@ void	*monitoring(void *arg)
 			handle_death(monitor_data->environment, &death_info);
 			someone_died = true;
 		}
+		if (has_everyone_eaten_enough(philosophers))
+			break ;
 		usleep(MILLISECOND);
 	}
 	return (NULL);
@@ -65,7 +68,8 @@ static bool	is_someone_died(t_circular_list *list, int time_to_die,
 	while (++i < list->count)
 	{
 		philosopher = (t_philosopher *)philosophers->value;
-		if (time_is_up(philosopher, time_to_die, &(*death_info).timestamp))
+		if (!philosopher->has_eaten_enough && time_is_up(philosopher,
+				time_to_die, &(*death_info).timestamp))
 		{
 			(*death_info).philo_id = philosopher->id;
 			return (true);

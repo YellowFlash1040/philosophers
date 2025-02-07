@@ -6,7 +6,7 @@
 /*   By: akovtune <akovtune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 12:22:47 by akovtune          #+#    #+#             */
-/*   Updated: 2025/01/31 13:53:12 by akovtune         ###   ########.fr       */
+/*   Updated: 2025/02/07 16:10:29 by akovtune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ typedef struct params
 	int		time_to_die;
 	int		time_to_eat;
 	int		time_to_sleep;
-	int		number_of_times_each_philosopher_must_eat;
+	int		meals_required;
 }			t_params;
 
 t_params	*init_params(void);

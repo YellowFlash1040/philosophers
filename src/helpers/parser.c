@@ -6,7 +6,7 @@
 /*   By: akovtune <akovtune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 14:46:42 by akovtune          #+#    #+#             */
-/*   Updated: 2025/02/06 18:33:51 by akovtune         ###   ########.fr       */
+/*   Updated: 2025/02/07 16:10:29 by akovtune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ static bool	convert_and_fill_numbers(int argsc, char **args, t_params *params)
 	if (check_and_atoi(args[4], &number))
 		params->time_to_sleep = number;
 	if (argsc == 6 && check_and_atoi(args[5], &number))
-		params->number_of_times_each_philosopher_must_eat = number;
+		params->meals_required = number;
 	return (true);
 }
 
@@ -62,7 +62,7 @@ static int	is_valid_params(t_params *params, int argsc)
 		return (TIME_TO_EAT_ERR);
 	if (params->time_to_sleep < 1)
 		return (TIME_TO_SLEEP_ERR);
-	if (argsc == 6 && params->number_of_times_each_philosopher_must_eat < 1)
+	if (argsc == 6 && params->meals_required < 1)
 		return (OPTIONAL_PARAM_ERR);
 	return (SUCCESS);
 }

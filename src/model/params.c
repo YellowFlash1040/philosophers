@@ -6,7 +6,7 @@
 /*   By: akovtune <akovtune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 12:24:15 by akovtune          #+#    #+#             */
-/*   Updated: 2025/02/07 12:02:56 by akovtune         ###   ########.fr       */
+/*   Updated: 2025/02/07 16:10:29 by akovtune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ t_params	*init_params(void)
 	params->time_to_eat = 0;
 	params->time_to_sleep = 0;
 	params->time_to_die = 0;
-	params->number_of_times_each_philosopher_must_eat = -1;
+	params->meals_required = -1;
 	return (params);
 }
 

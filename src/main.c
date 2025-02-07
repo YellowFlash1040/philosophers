@@ -6,7 +6,7 @@
 /*   By: akovtune <akovtune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 15:03:31 by akovtune          #+#    #+#             */
-/*   Updated: 2025/02/06 18:31:11 by akovtune         ###   ########.fr       */
+/*   Updated: 2025/02/07 16:44:26 by akovtune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 #include "parser.h"
 #include "simulation.h"
 #include "simulation_setup.h"
+
+#define WRONG_PARAMS_AMOUNT_ERR 140
 
 // static int	set_params(t_params **params_ref);
 static int	philosophers(int argsc, char **args);
@@ -24,8 +26,8 @@ int	main(int argsc, char **args)
 
 	if (argsc < 5 || argsc > 6)
 	{
-		print_error(FAIL);
-		return (FAIL);
+		print_error(WRONG_PARAMS_AMOUNT_ERR);
+		return (WRONG_PARAMS_AMOUNT_ERR);
 	}
 	status = philosophers(argsc, args);
 	if (status != SUCCESS)

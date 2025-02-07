@@ -6,7 +6,7 @@
 /*   By: akovtune <akovtune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/25 15:58:18 by akovtune          #+#    #+#             */
-/*   Updated: 2025/02/07 11:54:33 by akovtune         ###   ########.fr       */
+/*   Updated: 2025/02/07 16:27:43 by akovtune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ typedef struct philosopher
 	bool			is_alive;
 	t_time_point	last_meal_time;
 	int				meals_eaten;
+	bool			has_eaten_enough;
 }					t_philosopher;
 
 t_philosopher		*init_philosopher(t_action action);
