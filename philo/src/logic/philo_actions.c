@@ -63,7 +63,7 @@ static int	philo_eat(t_thread *thread)
 		thread->philosopher->meals_eaten++;
 		if (thread->philosopher->meals_eaten == meals_required)
 			thread->philosopher->has_eaten_enough = true;
-		usleep(thread->environment->timings->time_to_eat * MILLISECOND);
+		precise_usleep(thread->environment->timings->time_to_eat);
 	}
 	put_forks_back(thread, forks_taken);
 	if (!has_both_forks)
@@ -75,7 +75,7 @@ static int	philo_sleep(t_thread *thread)
 {
 	if (!print_status(thread, SLEEPING, NULL))
 		return (SOMEONE_DIED);
-	usleep(thread->environment->timings->time_to_sleep * MILLISECOND);
+	precise_usleep(thread->environment->timings->time_to_sleep);
 	return (SUCCESS);
 }
 

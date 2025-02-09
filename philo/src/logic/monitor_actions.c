@@ -6,7 +6,7 @@
 /*   By: akovtune <akovtune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 14:47:07 by akovtune          #+#    #+#             */
-/*   Updated: 2025/02/07 16:35:12 by akovtune         ###   ########.fr       */
+/*   Updated: 2025/02/09 12:08:04 by akovtune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,9 +86,8 @@ static bool	time_is_up(t_philosopher *philosopher, int time_to_die,
 	int				starving_time;
 
 	gettimeofday(&now, NULL);
-	starving_time = calculate_time_difference_in_ms(philosopher->last_meal_time,
-			now);
-	if (starving_time > time_to_die)
+	starving_time = calculate_time_difference(philosopher->last_meal_time, now);
+	if (starving_time >= time_to_die)
 	{
 		*death_timestamp = now;
 		return (true);
@@ -105,7 +104,7 @@ static void	handle_death(t_environment *environment, t_death_info *death_info)
 	pthread_mutex_lock(environment->death_mutex);
 	environment->someone_died = true;
 	pthread_mutex_unlock(environment->death_mutex);
-	death_timestamp = calculate_time_difference_in_ms(simulation_start,
+	death_timestamp = calculate_time_difference(simulation_start,
 			death_info->timestamp);
 	pthread_mutex_lock(environment->write_mutex);
 	printf("%d %d died\n", death_timestamp, death_info->philo_id);
