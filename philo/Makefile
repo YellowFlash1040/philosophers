@@ -17,6 +17,16 @@ OBJ_DIR					:= obj
 LIBRARIES_DIR			:= libraries
 CIRCULAR_LIST_LIB_DIR	:= $(LIBRARIES_DIR)/circular_list
 
+SRC_DIRS				:= $(SRC_DIR) \
+							$(MODEL_DIR) \
+							$(SETUP_DIR) \
+							$(LOGIC_DIR) \
+							$(HELPERS_DIR) \
+							$(WRAPPERS_DIR) \
+							$(OBJ_DIR) \
+							$(LIBRARIES_DIR) \
+							$(CIRCULAR_LIST_LIB_DIR)
+
 # Includes
 INCLUDES				:= -I$(SRC_DIR) \
 							-I$(MODEL_DIR) \
@@ -32,7 +42,9 @@ FILES					:= $(notdir $(wildcard $(SRC_DIR)/*.c)) \
 							$(notdir $(wildcard $(SETUP_DIR)/*.c)) \
 							$(notdir $(wildcard $(LOGIC_DIR)/*.c)) \
 							$(notdir $(wildcard $(HELPERS_DIR)/*.c)) \
-							$(notdir $(wildcard $(WRAPPERS_DIR)/*.c)) \
+							$(notdir $(wildcard $(WRAPPERS_DIR)/*.c))
+
+HEADERS 				:= $(foreach dir,$(SRC_DIRS),$(wildcard $(dir)/*.h))
 
 # Objects
 OBJ     				:= $(addprefix $(OBJ_DIR)/, $(FILES:.c=.o))
@@ -48,6 +60,8 @@ GREEN					:= \033[0;32m
 RED						:= \033[31m
 RESET					:= \033[0m
 
+vpath %c $(SRC_DIRS)
+
 # Default Target
 all: $(NAME)
 
@@ -57,27 +71,7 @@ $(NAME): $(OBJ) $(LIBRARIES)
 	@echo "$(GREEN)Compiled $@ successfully!$(RESET)"
 
 #Compile Object Files
-$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
-	@mkdir -p $(OBJ_DIR)
-	@$(CC) $(CFLAGS) -c $< -o $@
-
-$(OBJ_DIR)/%.o: $(MODEL_DIR)/%.c
-	@mkdir -p $(OBJ_DIR)
-	@$(CC) $(CFLAGS) -c $< -o $@
-
-$(OBJ_DIR)/%.o: $(SETUP_DIR)/%.c
-	@mkdir -p $(OBJ_DIR)
-	@$(CC) $(CFLAGS) -c $< -o $@
-
-$(OBJ_DIR)/%.o: $(LOGIC_DIR)/%.c
-	@mkdir -p $(OBJ_DIR)
-	@$(CC) $(CFLAGS) -c $< -o $@
-
-$(OBJ_DIR)/%.o: $(HELPERS_DIR)/%.c
-	@mkdir -p $(OBJ_DIR)
-	@$(CC) $(CFLAGS) -c $< -o $@
-
-$(OBJ_DIR)/%.o: $(WRAPPERS_DIR)/%.c
+$(OBJ_DIR)/%.o: %.c $(HEADERS)
 	@mkdir -p $(OBJ_DIR)
 	@$(CC) $(CFLAGS) -c $< -o $@
 

@@ -6,7 +6,7 @@
 /*   By: akovtune <akovtune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/15 17:58:24 by akovtune          #+#    #+#             */
-/*   Updated: 2025/01/26 16:32:25 by akovtune         ###   ########.fr       */
+/*   Updated: 2025/04/02 15:15:28 by akovtune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,13 +37,13 @@ t_circular_list_node	*pop(t_circular_list *list)
 	return (node);
 }
 
-void	push(t_circular_list_node *node, t_circular_list *list)
+bool	push(t_circular_list_node *node, t_circular_list *list)
 {
 	t_circular_list_node	*head;
 	t_circular_list_node	*tail;
 
-	if (!list)
-		return ;
+	if (!list || !node)
+		return (false);
 	head = list->head;
 	if (head)
 	{
@@ -62,6 +62,7 @@ void	push(t_circular_list_node *node, t_circular_list *list)
 		list->head = node;
 		list->count = 1;
 	}
+	return (true);
 }
 
 t_circular_list_node	*create_node(void *value)

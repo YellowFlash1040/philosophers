@@ -6,7 +6,7 @@
 /*   By: akovtune <akovtune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 16:31:32 by akovtune          #+#    #+#             */
-/*   Updated: 2025/02/07 16:34:47 by akovtune         ###   ########.fr       */
+/*   Updated: 2025/04/02 15:50:32 by akovtune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,15 @@ bool	has_everyone_eaten_enough(t_circular_list *philosophers)
 	while (++i < philosophers->count)
 	{
 		philosopher = (t_philosopher *)philosopher_node->value;
+		pthread_mutex_lock(philosopher->has_eaten_enough_mutex);
 		if (philosopher->has_eaten_enough)
 			hungry_philosophers--;
+		pthread_mutex_unlock(philosopher->has_eaten_enough_mutex);
 		philosopher_node = philosopher_node->next;
 	}
 	if (hungry_philosophers == 0)
 		return (true);
 	return (false);
 }
+// if (!philosopher || !philosopher->has_eaten_enough_mutex)
+// 	printf("HAHAHA something is empty\n");

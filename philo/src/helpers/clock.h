@@ -6,7 +6,7 @@
 /*   By: akovtune <akovtune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 14:02:37 by akovtune          #+#    #+#             */
-/*   Updated: 2025/02/06 16:42:13 by akovtune         ###   ########.fr       */
+/*   Updated: 2025/04/02 16:23:20 by akovtune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,10 @@
 # include "time_point.h"
 # include <stdlib.h>
 
-double	calculate_time_difference(t_time_point start, t_time_point end);
-int		calculate_time_difference_in_ms(t_time_point start, t_time_point end);
-int		time_elapsed_since(t_time_point start, t_time_point *now_ref);
+typedef unsigned long	t_uint64;
+
+t_uint64	calculate_time_difference(t_time_point start, t_time_point end);
+t_uint64	time_elapsed_since(t_time_point start, t_time_point *now_ref);
+void		precise_sleep(t_uint64 duration_ms);
 
 #endif

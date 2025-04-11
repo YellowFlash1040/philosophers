@@ -6,14 +6,12 @@
 /*   By: akovtune <akovtune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 18:00:39 by akovtune          #+#    #+#             */
-/*   Updated: 2025/02/07 13:36:51 by akovtune         ###   ########.fr       */
+/*   Updated: 2025/04/02 15:51:30 by akovtune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo_actions.h"
 
-bool		print_status(t_thread *thread, t_status status,
-				t_time_point *now_ref);
 bool		is_someone_dead(t_environment *environment);
 static bool	take_a_fork(t_thread *thread, t_fork *fork, bool *fork_taken);
 
@@ -52,6 +50,8 @@ bool	wait_for_forks(t_thread *thread, bool *forks_taken)
 
 	left_fork = thread->philosopher->left_fork;
 	right_fork = thread->philosopher->right_fork;
+	// printf("left fork: %p\n", left_fork);
+	// printf("right fork: %p\n", right_fork);
 	forks_taken[LEFT] = false;
 	forks_taken[RIGHT] = false;
 	if (thread->philosopher->id % 2 == 0)
