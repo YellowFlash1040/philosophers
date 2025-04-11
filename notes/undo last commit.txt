@@ -1,0 +1,3 @@
+git reset --soft HEAD~1
+
+git@vogsphere-v2.codam.nl:vogsphere/intra-uuid-69c54b39-fc54-4f85-9a54-b1aa64e5fbca-6294161-akovtune

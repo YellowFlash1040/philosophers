@@ -1,0 +1,15 @@
+Some thoughts:
+- I figured that if you want philosophers to not die, 
+you have to give them a bit more time to sleep than time to eat
+then the test like:
+
+./philo 200 200 60 80
+
+runs smooothly.
+
+So basically if you want everyone to stay alive you have to make the time to die to be at least:
+time_to_die = time_to_eat * 2 + time_to_sleep
+
+200 = 60 * 2 + 80
+
+then it works. If you give it less - someone will die
