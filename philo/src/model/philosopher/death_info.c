@@ -6,7 +6,7 @@
 /*   By: akovtune <akovtune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 18:02:39 by akovtune          #+#    #+#             */
-/*   Updated: 2025/02/06 18:02:39 by akovtune         ###   ########.fr       */
+/*   Updated: 2025/04/18 17:04:20 by akovtune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ t_death_info	*init_death_info(void)
 	if (!death_info)
 		return (NULL);
 	death_info->philo_id = -1;
-	death_info->timestamp = (t_time_point){0};
+	death_info->timestamp = 0;
 	return (death_info);
 }
 

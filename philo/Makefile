@@ -1,66 +1,78 @@
+#-----------------------COMPILATION------------------------------------------------------
 # Compiler and Flags
 CC						:= cc
 CFLAGS					 = -Wall -Wextra -Werror $(INCLUDES) -g
 ADDITIONAL_FLAGS		:= -pthread
+INCLUDES				 = $(addprefix -I,$(SRC_DIRS)) $(addprefix -I,$(LIB_DIRS))
 
+#-----------------------BINARIES---------------------------------------------------------
 # Output Files
 NAME					:= philo
 
+#-----------------------FOLDERS----------------------------------------------------------
 # Directories
 SRC_DIR					:= src
+OBJ_DIR					:= obj
+LIB_DIR					:= libraries
+
+# Source directories (src/)
 MODEL_DIR				:= $(SRC_DIR)/model
 SETUP_DIR				:= $(SRC_DIR)/setup
 LOGIC_DIR				:= $(SRC_DIR)/logic
 HELPERS_DIR				:= $(SRC_DIR)/helpers
 WRAPPERS_DIR			:= $(SRC_DIR)/wrappers
-OBJ_DIR					:= obj
-LIBRARIES_DIR			:= libraries
-CIRCULAR_LIST_LIB_DIR	:= $(LIBRARIES_DIR)/circular_list
 
+# Logic directories (src/model/)
+MONITOR_MODEL_DIR		:= $(MODEL_DIR)/monitor
+PHILOSOPHER_MODEL_DIR	:= $(MODEL_DIR)/philosopher
+SETTINGS_MODEL_DIR		:= $(MODEL_DIR)/settings
+SHARED_MODEL_DIR		:= $(MODEL_DIR)/shared
+SIMULATION_MODEL_DIR	:= $(MODEL_DIR)/simulation
+
+# List of all source directories
 SRC_DIRS				:= $(SRC_DIR) \
 							$(MODEL_DIR) \
 							$(SETUP_DIR) \
 							$(LOGIC_DIR) \
 							$(HELPERS_DIR) \
 							$(WRAPPERS_DIR) \
-							$(OBJ_DIR) \
-							$(LIBRARIES_DIR) \
-							$(CIRCULAR_LIST_LIB_DIR)
+							$(MONITOR_MODEL_DIR) \
+							$(PHILOSOPHER_MODEL_DIR) \
+							$(SETTINGS_MODEL_DIR) \
+							$(SHARED_MODEL_DIR) \
+							$(SIMULATION_MODEL_DIR)
+							
 
-# Includes
-INCLUDES				:= -I$(SRC_DIR) \
-							-I$(MODEL_DIR) \
-							-I$(SETUP_DIR) \
-							-I$(LOGIC_DIR) \
-							-I$(HELPERS_DIR) \
-							-I$(WRAPPERS_DIR) \
-							-I$(CIRCULAR_LIST_LIB_DIR)
+# Library directories (libraries/)
+CIRCULAR_LIST_LIB_DIR	:= $(LIB_DIR)/circular_list
 
-# Files
-FILES					:= $(notdir $(wildcard $(SRC_DIR)/*.c)) \
-							$(notdir $(wildcard $(MODEL_DIR)/*.c)) \
-							$(notdir $(wildcard $(SETUP_DIR)/*.c)) \
-							$(notdir $(wildcard $(LOGIC_DIR)/*.c)) \
-							$(notdir $(wildcard $(HELPERS_DIR)/*.c)) \
-							$(notdir $(wildcard $(WRAPPERS_DIR)/*.c))
+# List of all library directories
+LIB_DIRS				:= $(CIRCULAR_LIST_LIB_DIR)
 
+#-----------------------FILES------------------------------------------------------------
+# Sources
+C_FILES 				:= $(foreach dir,$(SRC_DIRS),$(wildcard $(dir)/*.c))
 HEADERS 				:= $(foreach dir,$(SRC_DIRS),$(wildcard $(dir)/*.h))
 
 # Objects
-OBJ     				:= $(addprefix $(OBJ_DIR)/, $(FILES:.c=.o))
+OBJ     				:= $(patsubst %.c, $(OBJ_DIR)/%.o, $(notdir $(C_FILES)))
 
-# Libraries
+#-----------------------LIBRARIES--------------------------------------------------------
+# Library files
 CIRCULAR_LIST_LIB		:= $(CIRCULAR_LIST_LIB_DIR)/circular_list.a
 
-# Libraries sum up
+# Libraries
 LIBRARIES				:= $(CIRCULAR_LIST_LIB)
 
+#-----------------------COLORS-----------------------------------------------------------
 # Colors for Output
 GREEN					:= \033[0;32m
 RED						:= \033[31m
 RESET					:= \033[0m
 
+#-----------------------RULES------------------------------------------------------------
 vpath %c $(SRC_DIRS)
+vpath %h $(SRC_DIRS)
 
 # Default Target
 all: $(NAME)
@@ -83,7 +95,7 @@ $(OBJ_DIR)/%.o: %.c $(HEADERS)
 clean:
 	@rm -rf $(OBJ_DIR)
 	@echo "$(RED)Removed object files$(RESET)"
-	@for lib in $(LIBRARIES_DIR)/*/; do \
+	@for lib in $(LIB_DIR)/*/; do \
 		$(MAKE) -C $$lib clean > /dev/null; \
 	done
 	@# echo "$(RED)Removed libraries object files$(RESET)"
@@ -92,7 +104,7 @@ clean:
 fclean: clean
 	@rm -rf $(NAME)
 	@echo "$(RED)Removed $(NAME)$(RESET)"
-	@for lib in $(LIBRARIES_DIR)/*/; do \
+	@for lib in $(LIB_DIR)/*/; do \
 		$(MAKE) -C $$lib fclean > /dev/null; \
 	done
 	@# echo "$(RED)Removed .a libraries$(RESET)"

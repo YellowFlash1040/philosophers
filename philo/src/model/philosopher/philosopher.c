@@ -6,7 +6,7 @@
 /*   By: akovtune <akovtune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/25 16:00:49 by akovtune          #+#    #+#             */
-/*   Updated: 2025/04/02 16:07:32 by akovtune         ###   ########.fr       */
+/*   Updated: 2025/04/18 17:36:55 by akovtune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,19 +26,13 @@ t_philosopher	*init_philosopher(t_action action)
 	philosopher->action = action;
 	philosopher->left_fork = NULL;
 	philosopher->right_fork = NULL;
-	philosopher->last_meal_time = (t_time_point){0};
-	philosopher->last_meal_time_mutex = init_fork();
-	if (!philosopher->last_meal_time_mutex)
+	philosopher->meal_mutex = init_mutex();
+	if (!philosopher->meal_mutex)
 		return (destroy_philosopher(philosopher), NULL);
+	philosopher->last_meal_time = 0;
 	philosopher->is_eating = false;
-	philosopher->is_eating_mutex = init_fork();
-	if (!philosopher->is_eating_mutex)
-		return (destroy_philosopher(philosopher), NULL);
 	philosopher->meals_eaten = 0;
 	philosopher->has_eaten_enough = false;
-	philosopher->has_eaten_enough_mutex = init_fork();
-	if (!philosopher->has_eaten_enough_mutex)
-		return (destroy_philosopher(philosopher), NULL);
 	return (philosopher);
 }
 
@@ -47,12 +41,8 @@ bool	destroy_philosopher(t_philosopher *philosopher)
 	if (philosopher)
 	{
 		destroy_soul(&philosopher->soul);
-		if (philosopher->last_meal_time_mutex)
-			destroy_fork(&philosopher->last_meal_time_mutex);
-		if (philosopher->has_eaten_enough_mutex)
-			destroy_fork(&philosopher->has_eaten_enough_mutex);
-		if (philosopher->is_eating_mutex)
-			destroy_fork(&philosopher->is_eating_mutex);
+		if (philosopher->meal_mutex)
+			destroy_mutex(&philosopher->meal_mutex);
 		free(philosopher);
 		return (true);
 	}

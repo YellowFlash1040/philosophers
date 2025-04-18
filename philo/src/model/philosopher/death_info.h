@@ -6,7 +6,7 @@
 /*   By: akovtune <akovtune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 18:02:36 by akovtune          #+#    #+#             */
-/*   Updated: 2025/02/06 18:02:38 by akovtune         ###   ########.fr       */
+/*   Updated: 2025/04/18 17:05:34 by akovtune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@
 
 typedef struct death_info
 {
-	int				philo_id;
-	t_time_point	timestamp;
+	int			philo_id;
+	t_uint64	timestamp;
 }					t_death_info;
 
 t_death_info		*init_death_info(void);

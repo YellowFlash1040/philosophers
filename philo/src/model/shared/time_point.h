@@ -6,7 +6,7 @@
 /*   By: akovtune <akovtune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 15:51:19 by akovtune          #+#    #+#             */
-/*   Updated: 2025/02/06 15:54:48 by akovtune         ###   ########.fr       */
+/*   Updated: 2025/04/18 17:06:16 by akovtune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@
 
 # define MILLISECOND 1e3
 
-typedef struct timeval	t_time_point;
+// typedef struct timeval	t_time_point;
+typedef unsigned long	t_uint64;
+
 
 #endif
