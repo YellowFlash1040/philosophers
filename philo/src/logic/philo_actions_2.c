@@ -6,7 +6,7 @@
 /*   By: akovtune <akovtune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 18:00:39 by akovtune          #+#    #+#             */
-/*   Updated: 2025/04/02 15:51:30 by akovtune         ###   ########.fr       */
+/*   Updated: 2025/04/18 18:11:20 by akovtune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,16 +15,15 @@
 bool		is_someone_dead(t_environment *environment);
 static bool	take_a_fork(t_thread *thread, t_fork *fork, bool *fork_taken);
 
-bool	print_status(t_thread *thread, t_status status, t_time_point *now_ref)
+bool	print_status(t_thread *thread, t_status status, t_uint64 current_time)
 {
-	int		time_stamp;
-	int		id;
-	char	*status_message;
+	int			time_stamp;
+	int			id;
+	char		*status_message;
 
 	if (is_someone_dead(thread->environment))
 		return (false);
-	time_stamp = time_elapsed_since(thread->environment->simulation_start,
-			now_ref);
+	time_stamp = current_time - thread->environment->simulation_start;
 	id = thread->philosopher->id;
 	status_message = get_status_message(status);
 	pthread_mutex_lock(thread->environment->write_mutex);
@@ -50,8 +49,6 @@ bool	wait_for_forks(t_thread *thread, bool *forks_taken)
 
 	left_fork = thread->philosopher->left_fork;
 	right_fork = thread->philosopher->right_fork;
-	// printf("left fork: %p\n", left_fork);
-	// printf("right fork: %p\n", right_fork);
 	forks_taken[LEFT] = false;
 	forks_taken[RIGHT] = false;
 	if (thread->philosopher->id % 2 == 0)
@@ -76,10 +73,8 @@ static bool	take_a_fork(t_thread *thread, t_fork *fork, bool *fork_taken)
 {
 	pthread_mutex_lock(fork);
 	*fork_taken = true;
-	return (print_status(thread, HAS_TAKEN_FORK, NULL));
+	return (print_status(thread, HAS_TAKEN_FORK, get_time_ms()));
 }
-/*if (!fork)
-		return (false);*/
 
 void	put_forks_back(t_thread *thread, bool *forks_taken)
 {

@@ -6,18 +6,18 @@
 /*   By: akovtune <akovtune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 14:47:07 by akovtune          #+#    #+#             */
-/*   Updated: 2025/04/02 16:23:35 by akovtune         ###   ########.fr       */
+/*   Updated: 2025/04/18 17:43:06 by akovtune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "monitor_actions.h"
 
 static bool	is_someone_died(t_circular_list *list,
-				t_time_point simulation_start, int time_to_die,
+				t_uint64 simulation_start, int time_to_die,
 				t_death_info *death_info);
 static bool	time_is_up(t_philosopher *philosopher,
-				t_time_point simulation_start, int time_to_die,
-				t_time_point *death_timestamp);
+				t_uint64 simulation_start, int time_to_die,
+				t_uint64 *death_timestamp);
 static void	handle_death(t_environment *environment, t_death_info *death_info);
 bool		has_everyone_eaten_enough(t_circular_list *philosophers);
 void		*monitoring(void *arg);
@@ -60,7 +60,7 @@ void	*monitoring(void *arg)
 }
 
 static bool	is_someone_died(t_circular_list *list,
-		t_time_point simulation_start, int time_to_die,
+		t_uint64 simulation_start, int time_to_die,
 		t_death_info *death_info)
 {
 	t_circular_list_node	*node;
@@ -74,13 +74,10 @@ static bool	is_someone_died(t_circular_list *list,
 	while (++i < list->count)
 	{
 		philosopher = (t_philosopher *)node->value;
-		pthread_mutex_lock(philosopher->has_eaten_enough_mutex);
+		pthread_mutex_lock(philosopher->meal_mutex);
 		has_eaten_enough = philosopher->has_eaten_enough;
-		pthread_mutex_unlock(philosopher->has_eaten_enough_mutex);
-		is_eating = false;
-		pthread_mutex_lock(philosopher->is_eating_mutex);
 		is_eating = philosopher->is_eating;
-		pthread_mutex_unlock(philosopher->is_eating_mutex);
+		pthread_mutex_unlock(philosopher->meal_mutex);
 		if (!has_eaten_enough && time_is_up(philosopher, simulation_start,
 				time_to_die, &(*death_info).timestamp) && !is_eating)
 		{
@@ -93,34 +90,22 @@ static bool	is_someone_died(t_circular_list *list,
 }
 
 static bool	time_is_up(t_philosopher *philosopher,
-		t_time_point simulation_start, int time_to_die,
-		t_time_point *death_timestamp)
+		t_uint64 simulation_start, int time_to_die,
+		t_uint64 *death_timestamp)
 {
-	t_time_point	now;
-	t_time_point	philosopher_last_meal_time;
-	int				starving_time;
+	t_uint64	now;
+	t_uint64	philosopher_last_meal_time;
+	int			starving_time;
 
-	gettimeofday(&now, NULL);
-	pthread_mutex_lock(philosopher->last_meal_time_mutex);
+	pthread_mutex_lock(philosopher->meal_mutex);
 	philosopher_last_meal_time = philosopher->last_meal_time;
-	pthread_mutex_unlock(philosopher->last_meal_time_mutex);
-	if (philosopher_last_meal_time.tv_sec == 0)
-	{
-		// printf("philo %d\nsimulation_start.tv_sec: %ld\nsimulation_start.tv_usec: %ld\n\n", philosopher->id, simulation_start.tv_sec, simulation_start.tv_usec);
+	pthread_mutex_unlock(philosopher->meal_mutex);
+	if (philosopher_last_meal_time == 0)
 		philosopher_last_meal_time = simulation_start;
-	}
-	starving_time = calculate_time_difference(philosopher_last_meal_time,
-			now);
-	// if (starving_time > 1000)
-	// {
-	// 	printf("starving time: %d\n", starving_time);
-	// 	printf("time to die: %d\n", time_to_die);
-	// 	*death_timestamp = now;
-	// 	return (true);
-	// }
+	now = get_time_ms();
+	starving_time = now - philosopher_last_meal_time;
 	if (starving_time > time_to_die)
 	{
-		// printf("HE IS DEAD\n");
 		*death_timestamp = now;
 		return (true);
 	}
@@ -129,15 +114,14 @@ static bool	time_is_up(t_philosopher *philosopher,
 
 static void	handle_death(t_environment *environment, t_death_info *death_info)
 {
-	t_time_point	simulation_start;
+	t_uint64	simulation_start;
 	int				death_timestamp;
 
 	simulation_start = environment->simulation_start;
 	pthread_mutex_lock(environment->death_mutex);
 	environment->someone_died = true;
 	pthread_mutex_unlock(environment->death_mutex);
-	death_timestamp = calculate_time_difference(simulation_start,
-			death_info->timestamp);
+	death_timestamp = death_info->timestamp - simulation_start;
 	pthread_mutex_lock(environment->write_mutex);
 	printf("%d %d died\n", death_timestamp, death_info->philo_id);
 	pthread_mutex_unlock(environment->write_mutex);

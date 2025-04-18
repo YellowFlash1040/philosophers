@@ -6,7 +6,7 @@
 /*   By: akovtune <akovtune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 16:31:20 by akovtune          #+#    #+#             */
-/*   Updated: 2025/02/07 16:10:29 by akovtune         ###   ########.fr       */
+/*   Updated: 2025/04/18 16:54:56 by akovtune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,11 @@ int	setup_environment(t_environment **environment, t_params *params)
 	if (setup_timings(&(*environment)->timings, params) != 0)
 		return (destroy_environment(environment), TIMINGS_INIT_ERR);
 	(*environment)->meals_required = params->meals_required;
-	(*environment)->death_mutex = (t_mutex *)malloc(sizeof(t_mutex));
+	(*environment)->death_mutex = init_mutex();
 	if (!(*environment)->death_mutex)
 		return (destroy_environment(environment), MUTEX_INIT_ERR);
-	(*environment)->write_mutex = (t_mutex *)malloc(sizeof(t_mutex));
+	(*environment)->write_mutex = init_mutex();
 	if (!(*environment)->write_mutex)
 		return (destroy_environment(environment), MUTEX_INIT_ERR);
-	pthread_mutex_init((*environment)->death_mutex, NULL);
-	pthread_mutex_init((*environment)->write_mutex, NULL);
 	return (0);
 }
