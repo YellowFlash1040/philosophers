@@ -6,27 +6,24 @@
 /*   By: akovtune <akovtune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 18:00:39 by akovtune          #+#    #+#             */
-/*   Updated: 2025/02/07 13:36:51 by akovtune         ###   ########.fr       */
+/*   Updated: 2025/04/19 15:55:53 by akovtune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo_actions.h"
 
-bool		print_status(t_thread *thread, t_status status,
-				t_time_point *now_ref);
 bool		is_someone_dead(t_environment *environment);
 static bool	take_a_fork(t_thread *thread, t_fork *fork, bool *fork_taken);
 
-bool	print_status(t_thread *thread, t_status status, t_time_point *now_ref)
+bool	print_status(t_thread *thread, t_status status, t_uint64 current_time)
 {
-	int		time_stamp;
-	int		id;
-	char	*status_message;
+	int			time_stamp;
+	int			id;
+	char		*status_message;
 
 	if (is_someone_dead(thread->environment))
 		return (false);
-	time_stamp = time_elapsed_since(thread->environment->simulation_start,
-			now_ref);
+	time_stamp = current_time - thread->environment->simulation_start;
 	id = thread->philosopher->id;
 	status_message = get_status_message(status);
 	pthread_mutex_lock(thread->environment->write_mutex);
@@ -74,12 +71,25 @@ bool	wait_for_forks(t_thread *thread, bool *forks_taken)
 
 static bool	take_a_fork(t_thread *thread, t_fork *fork, bool *fork_taken)
 {
+	t_uint64	time_to_die;
+	t_uint64	last_meal_time;
+	t_uint64	now;
+
+	time_to_die = thread->environment->timings->time_to_die;
 	pthread_mutex_lock(fork);
+	now = get_time_ms();
+	pthread_mutex_lock(thread->philosopher->meal_mutex);
+	last_meal_time = thread->philosopher->last_meal_time;
+	pthread_mutex_unlock(thread->philosopher->meal_mutex);
+	if (now - last_meal_time >= time_to_die)
+	{
+		pthread_mutex_unlock(fork);
+		*fork_taken = false;
+		return (false);
+	}
 	*fork_taken = true;
-	return (print_status(thread, HAS_TAKEN_FORK, NULL));
+	return (print_status(thread, HAS_TAKEN_FORK, now));
 }
-/*if (!fork)
-		return (false);*/
 
 void	put_forks_back(t_thread *thread, bool *forks_taken)
 {

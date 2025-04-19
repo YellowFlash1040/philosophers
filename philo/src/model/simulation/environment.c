@@ -6,7 +6,7 @@
 /*   By: akovtune <akovtune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 18:33:00 by akovtune          #+#    #+#             */
-/*   Updated: 2025/02/07 11:55:29 by akovtune         ###   ########.fr       */
+/*   Updated: 2025/04/18 17:11:21 by akovtune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ t_environment	*init_environment(void)
 	environment = (t_environment *)malloc(sizeof(t_environment));
 	if (!environment)
 		return (NULL);
-	environment->simulation_start = (t_time_point){0};
+	environment->simulation_start = 0;
 	environment->someone_died = false;
 	environment->timings = NULL;
 	environment->death_mutex = NULL;

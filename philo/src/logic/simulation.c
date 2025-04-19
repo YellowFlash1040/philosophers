@@ -6,7 +6,7 @@
 /*   By: akovtune <akovtune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/26 14:45:03 by akovtune          #+#    #+#             */
-/*   Updated: 2025/02/07 12:25:48 by akovtune         ###   ########.fr       */
+/*   Updated: 2025/04/18 17:11:06 by akovtune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,32 +27,34 @@ void	start_simulation(t_simulation_data *data)
 
 static void	launch_timer(t_monitor *monitor)
 {
-	t_time_point	now;
 	t_environment	*environment;
 
 	environment = monitor->monitor_data->environment;
-	gettimeofday(&now, NULL);
-	environment->simulation_start = now;
+	environment->simulation_start = get_time_ms();
 	start_monitoring(monitor);
 }
 
 static void	spawn_philosophers(t_simulation_data *data)
 {
-	t_circular_list_node	*philosophers;
+	t_circular_list_node	*philosopher_node;
+	t_circular_list_node	*thread_node;
 	t_philosopher			*philosopher;
-	t_circular_list_node	*thread;
+	void					*thread;
 	int						i;
 
-	philosophers = data->philosophers->head;
-	thread = data->threads->head;
+	philosopher_node = data->philosophers->head;
+	thread_node = data->threads->head;
 	i = -1;
 	while (++i < data->philosophers->count)
 	{
-		philosopher = (t_philosopher *)philosophers->value;
+		thread = thread_node->value;
+		philosopher = (t_philosopher *)philosopher_node->value;
+		pthread_mutex_lock(philosopher->meal_mutex);
 		philosopher->last_meal_time = data->environment->simulation_start;
-		bring_to_life(philosopher, thread->value);
-		philosophers = philosophers->next;
-		thread = thread->next;
+		pthread_mutex_unlock(philosopher->meal_mutex);
+		bring_to_life(philosopher, thread);
+		philosopher_node = philosopher_node->next;
+		thread_node = thread_node->next;
 	}
 }
 

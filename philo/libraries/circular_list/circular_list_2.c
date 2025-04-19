@@ -6,7 +6,7 @@
 /*   By: akovtune <akovtune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/25 18:48:23 by akovtune          #+#    #+#             */
-/*   Updated: 2025/01/26 14:02:57 by akovtune         ###   ########.fr       */
+/*   Updated: 2025/04/02 15:48:36 by akovtune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ bool	add_to_list(t_circular_list *list, void *value)
 	node = create_node(value);
 	if (!node)
 		return (false);
-	push(node, list);
+	if (!push(node, list))
+		return (free(node), false);
 	return (true);
 }
 

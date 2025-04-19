@@ -1,24 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   clock.h                                            :+:      :+:    :+:   */
+/*   mutex.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: akovtune <akovtune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/31 14:02:37 by akovtune          #+#    #+#             */
-/*   Updated: 2025/04/19 17:12:35 by akovtune         ###   ########.fr       */
+/*   Created: 2025/04/18 16:47:02 by akovtune          #+#    #+#             */
+/*   Updated: 2025/04/18 16:49:15 by akovtune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CLOCK_H
-# define CLOCK_H
+#ifndef MUTEX_H
+# define MUTEX_H
 
+# include <pthread.h>
+# include <stdbool.h>
 # include <stdlib.h>
-# include <unistd.h>
-# include "time_point.h"
 
-t_uint64	get_time_ms(void);
-t_uint64	time_elapsed_since(t_uint64 start_time);
-void		precise_sleep(t_uint64 duration_ms);
+# define MUTEX_INIT_ERR 39
+
+typedef pthread_mutex_t	t_mutex;
+
+t_mutex	*init_mutex(void);
+void	destroy_mutex(t_mutex **mutex_ref);
 
 #endif

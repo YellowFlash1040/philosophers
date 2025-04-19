@@ -1,35 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   clock.c                                            :+:      :+:    :+:   */
+/*   mutex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: akovtune <akovtune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/31 14:04:15 by akovtune          #+#    #+#             */
-/*   Updated: 2025/04/19 17:12:25 by akovtune         ###   ########.fr       */
+/*   Created: 2025/04/19 15:55:58 by akovtune          #+#    #+#             */
+/*   Updated: 2025/04/19 15:56:19 by akovtune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "clock.h"
+#include "mutex.h"
 
-t_uint64	get_time_ms(void)
+t_mutex	*init_mutex(void)
 {
-	struct timeval	tv;
+	t_mutex	*mutex;
 
-	gettimeofday(&tv, NULL);
-	return ((tv.tv_sec * 1000) + (tv.tv_usec / 1000));
+	mutex = (t_mutex *)malloc(sizeof(t_mutex));
+	if (!mutex)
+		return (NULL);
+	if (pthread_mutex_init(mutex, NULL) != 0)
+		return (free(mutex), NULL);
+	return (mutex);
 }
 
-t_uint64	time_elapsed_since(t_uint64 start_time)
+void	destroy_mutex(t_mutex **mutex_ref)
 {
-	return (get_time_ms() - start_time);
-}
+	t_mutex	*mutex;
 
-void	precise_sleep(t_uint64 duration_ms)
-{
-	t_uint64	start;
-
-	start = get_time_ms();
-	while (time_elapsed_since(start) < duration_ms)
-		usleep(500);
+	if (!mutex_ref || !*mutex_ref)
+		return ;
+	mutex = *mutex_ref;
+	pthread_mutex_destroy(mutex);
+	free(mutex);
+	*mutex_ref = NULL;
 }

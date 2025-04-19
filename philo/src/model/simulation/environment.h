@@ -6,7 +6,7 @@
 /*   By: akovtune <akovtune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 18:31:32 by akovtune          #+#    #+#             */
-/*   Updated: 2025/02/07 11:54:45 by akovtune         ###   ########.fr       */
+/*   Updated: 2025/04/18 17:03:21 by akovtune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,10 @@ typedef pthread_mutex_t	t_mutex;
 typedef struct environment
 {
 	t_timings			*timings;
-	t_time_point		simulation_start;
+	t_uint64			simulation_start;
 	bool				someone_died;
-	t_mutex				*write_mutex;
 	t_mutex				*death_mutex;
+	t_mutex				*write_mutex;
 	int					meals_required;
 }						t_environment;
 
