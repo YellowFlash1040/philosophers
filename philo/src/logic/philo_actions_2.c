@@ -6,7 +6,7 @@
 /*   By: akovtune <akovtune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 18:00:39 by akovtune          #+#    #+#             */
-/*   Updated: 2025/04/18 18:11:20 by akovtune         ###   ########.fr       */
+/*   Updated: 2025/04/19 15:55:53 by akovtune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,9 +71,24 @@ bool	wait_for_forks(t_thread *thread, bool *forks_taken)
 
 static bool	take_a_fork(t_thread *thread, t_fork *fork, bool *fork_taken)
 {
+	t_uint64	time_to_die;
+	t_uint64	last_meal_time;
+	t_uint64	now;
+
+	time_to_die = thread->environment->timings->time_to_die;
 	pthread_mutex_lock(fork);
+	now = get_time_ms();
+	pthread_mutex_lock(thread->philosopher->meal_mutex);
+	last_meal_time = thread->philosopher->last_meal_time;
+	pthread_mutex_unlock(thread->philosopher->meal_mutex);
+	if (now - last_meal_time >= time_to_die)
+	{
+		pthread_mutex_unlock(fork);
+		*fork_taken = false;
+		return (false);
+	}
 	*fork_taken = true;
-	return (print_status(thread, HAS_TAKEN_FORK, get_time_ms()));
+	return (print_status(thread, HAS_TAKEN_FORK, now));
 }
 
 void	put_forks_back(t_thread *thread, bool *forks_taken)

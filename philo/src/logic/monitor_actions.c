@@ -6,7 +6,7 @@
 /*   By: akovtune <akovtune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 14:47:07 by akovtune          #+#    #+#             */
-/*   Updated: 2025/04/18 17:43:06 by akovtune         ###   ########.fr       */
+/*   Updated: 2025/04/19 15:54:40 by akovtune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,6 @@ void	*monitoring(void *arg)
 		}
 		if (has_everyone_eaten_enough(philosophers))
 			break ;
-		// usleep(MILLISECOND);
 		precise_sleep(1);
 	}
 	return (NULL);
@@ -104,7 +103,7 @@ static bool	time_is_up(t_philosopher *philosopher,
 		philosopher_last_meal_time = simulation_start;
 	now = get_time_ms();
 	starving_time = now - philosopher_last_meal_time;
-	if (starving_time > time_to_die)
+	if (starving_time >= time_to_die)
 	{
 		*death_timestamp = now;
 		return (true);
@@ -115,7 +114,7 @@ static bool	time_is_up(t_philosopher *philosopher,
 static void	handle_death(t_environment *environment, t_death_info *death_info)
 {
 	t_uint64	simulation_start;
-	int				death_timestamp;
+	int			death_timestamp;
 
 	simulation_start = environment->simulation_start;
 	pthread_mutex_lock(environment->death_mutex);
