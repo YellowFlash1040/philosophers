@@ -6,7 +6,7 @@
 /*   By: akovtune <akovtune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 18:31:32 by akovtune          #+#    #+#             */
-/*   Updated: 2025/04/18 17:03:21 by akovtune         ###   ########.fr       */
+/*   Updated: 2025/04/19 18:11:00 by akovtune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ typedef struct environment
 	t_mutex				*death_mutex;
 	t_mutex				*write_mutex;
 	int					meals_required;
+	int					philo_count;
 }						t_environment;
 
 t_environment			*init_environment(void);

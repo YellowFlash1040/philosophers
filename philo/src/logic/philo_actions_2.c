@@ -6,7 +6,7 @@
 /*   By: akovtune <akovtune@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 18:00:39 by akovtune          #+#    #+#             */
-/*   Updated: 2025/04/19 15:55:53 by akovtune         ###   ########.fr       */
+/*   Updated: 2025/04/19 18:56:07 by akovtune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,19 +51,19 @@ bool	wait_for_forks(t_thread *thread, bool *forks_taken)
 	right_fork = thread->philosopher->right_fork;
 	forks_taken[LEFT] = false;
 	forks_taken[RIGHT] = false;
-	if (thread->philosopher->id % 2 == 0)
-	{
-		if (!take_a_fork(thread, left_fork, &forks_taken[LEFT]))
-			return (false);
-		if (!take_a_fork(thread, right_fork, &forks_taken[RIGHT]))
-			return (false);
-	}
-	else
+	if (thread->philosopher->id == thread->environment->philo_count)
 	{
 		if (right_fork)
 			if (!take_a_fork(thread, right_fork, &forks_taken[RIGHT]))
 				return (false);
 		if (!take_a_fork(thread, left_fork, &forks_taken[LEFT]))
+			return (false);	
+	}
+	else
+	{
+		if (!take_a_fork(thread, left_fork, &forks_taken[LEFT]))
+			return (false);
+		if (!take_a_fork(thread, right_fork, &forks_taken[RIGHT]))
 			return (false);
 	}
 	return (forks_taken[LEFT] && forks_taken[RIGHT]);
@@ -98,18 +98,22 @@ void	put_forks_back(t_thread *thread, bool *forks_taken)
 
 	left_fork = thread->philosopher->left_fork;
 	right_fork = thread->philosopher->right_fork;
-	if (thread->philosopher->id % 2 == 0)
-	{
-		if (forks_taken[LEFT])
-			pthread_mutex_unlock(left_fork);
-		if (forks_taken[RIGHT])
-			pthread_mutex_unlock(right_fork);
-	}
-	else
-	{
-		if (forks_taken[RIGHT])
-			pthread_mutex_unlock(right_fork);
-		if (forks_taken[LEFT])
-			pthread_mutex_unlock(left_fork);
-	}
+	// if (thread->philosopher->id % 2 == 0)
+	// {
+	// 	if (forks_taken[LEFT])
+	// 		pthread_mutex_unlock(left_fork);
+	// 	if (forks_taken[RIGHT])
+	// 		pthread_mutex_unlock(right_fork);
+	// }
+	// else
+	// {
+	// 	if (forks_taken[RIGHT])
+	// 		pthread_mutex_unlock(right_fork);
+	// 	if (forks_taken[LEFT])
+	// 		pthread_mutex_unlock(left_fork);
+	// }
+	if (forks_taken[LEFT])
+		pthread_mutex_unlock(left_fork);
+	if (forks_taken[RIGHT])
+		pthread_mutex_unlock(right_fork);
 }

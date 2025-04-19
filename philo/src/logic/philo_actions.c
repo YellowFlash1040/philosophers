@@ -57,7 +57,7 @@ int	philo_eat(t_thread *thread)
 	int				result;
 
 	if (thread->philosopher->id % 2 == 0)
-		precise_sleep(2);
+		usleep(200);
 	has_both_forks = wait_for_forks(thread, forks_taken);
 	if (has_both_forks)
 		result = eat(thread);
